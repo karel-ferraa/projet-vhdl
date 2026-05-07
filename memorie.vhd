@@ -20,11 +20,11 @@ end Core_Microcontroller_4bit;
 
 architecture Behavioral of Core_Microcontroller_4bit is
 
-    type memoire_array is array (0 to 127) of std_logic_vector(9 DOWNTO 0)
+    type memoire_array is array (0 to 127) of std_logic_vector(9 DOWNTO 0);
 
     constant MEM_INSTRUCTIONS : memoire_array :=(
-        0 => "0000000000"
-        1 => "0110011101"
+        0 => "0000000000",
+        1 => "0110011101",
         others => (others => '0')
     )
 
@@ -53,7 +53,7 @@ begin
                 Buffer_A <= (others => '0');
                 Buffer_B  <= (others => '0');
                 MEM_CACHE_1 <= (others => '0');
-                MEM_CAHCE_2 <= (others => '0');
+                MEM_CACHE_2 <= (others => '0');
                 RES_OUT <= (others => '0');
 
             elsif rising_edge(CLK) then 
@@ -84,10 +84,10 @@ begin
 
                 -- === Sélection de la sortie (sel_out) ===
                 case MEM_SEL_OUT is
-                    When "00" => RES_OUT <= 0;
-                    When "01" => RES_OUT <= MEM _CACHE_1; -- sortie du cache 1
-                    When "10" => RES_OUT <= MEM _CACHE_2; -- Sortie du cache 2
-                    When "11" =>  RES_OUT <= S; -- Sortie directe de l'UAL
+                    When "00" => RES_OUT <= (others => '0');
+                    When "01" => RES_OUT <= MEM_CACHE_1; -- sortie du cache 1
+                    When "10" => RES_OUT <= MEM_CACHE_2; -- Sortie du cache 2
+                    When "11" => RES_OUT <= S; -- Sortie directe de l'UAL
                 end case;
             end if;
         end process;
